@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title> Deposit into your account </title>
+    <!-- headLinks -->
+  <%- include("./partials/headLinks.ejs") -%>
+  <!-- ### headLinks ### -->
+    <style>
+    .app-brand-logo img, .app-brand-logo svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    }
+    .form-check label{
+        cursor: pointer;
+    }  
+    ul.progress-group{
+        list-style: none;
+    }
+    ul li.progress-item {
+        margin: 1rem 0;
+        /* position: relative; */
+        display: flex;
+        align-items: center;
+
+    }
+    li.progress-item::before{
+        display: block;
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        /* background-color:#007bff; */
+        border: 2px dashed #007bff;
+        margin-right: 20px;
+    }  
+  
+    </style>
+  </head>
+
+  <body class="body-linear">
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include("./partials/sidenav.ejs") -%>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme card-color"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center ms-auto me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm text-white"></i>
+              </a>
+            </div>
+          </nav>
+          <!-- just server validation -->
+      <% if(messages.error){ %>
+        <div class="alert alert-primary alert-dismissible text-center" role="alert" id="myAlert">
+            <%= messages.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <script>
+            myAlert.classList.add("move")
+          setTimeout(function () {
+          return myAlert.classList.remove("move");
+          }, 3000);
+          </script>
+      <% } %>
+
+          <!-- / Navbar -->
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6 mb-4 ">
+                                    <%- include("./partials/ballances/fundingBallance.ejs") -%>
+                              </div>
+                              <div class="col-md-6 mb-4 ">
+                                <%- include("./partials/ballances/cyclesBallance.ejs") -%>
+                              </div>
+                              <div class="col-md-6 mb-4 ">
+                                <%- include("./partials/ballances/shortTermBallance.ejs") -%>
+                              </div>
+                        </div>  
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-md-10 col-lg 8">
+                                <div class="card mb-4 card-color">
+                                    <div class="card-body">
+                                        <form method="POST">
+                                         <h3 class="text-white"> Transfer funds</h3>
+                                         <div class="mb-3">
+                                            <label for="defaultSelect" class="form-label text-white">From</label>
+                                            <select id="defaultSelect" name="from" class="form-select" required>
+                                              <option value="">From wallet </option>
+                                              <option value="fundingBallance"> Funding balance</option>
+                                              <option value="cyclesBallance">cycles balance</option>
+                                              <option value="shortBallance">short-term balance</option>
+                                            </select>
+                                          </div>
+                                          <div class="mb-3">
+                                            <label for="defaultSelect1" class="form-label text-white">To</label>
+                                            <select name="to" id="defaultSelect1" class="form-select" required>
+                                              <option value=""> To wallet</option>
+                                              <option value="fundingBallance"> Funding balance</option>
+                                              <option value="cyclesBallance">cycles balance</option>
+                                              <option value="shortBallance">short-term balance</option>
+                                            </select>
+                                          </div>
+                                          <div class="mb-3">
+                                            <label class="form-label text-white" for="basic-default-phone" >Amount</label>
+                                            <input type="number" id="basic-default-phone" name="amount" required class="form-control phone-mask" placeholder="">
+                                          </div>
+                                          <button type="submit" class="btn btn-primary"> Transfer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                     </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    	<%- include("./partials/footerLinks.ejs") -%>
+      <!-- hide ballance fxn -->
+      <%- include("./partials/hideBallance.ejs") -%>
+      <!-- ### -->
+      <script>
+
+      </script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

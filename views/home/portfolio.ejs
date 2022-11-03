@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>Portfolio - Temenos </title>
+    <%- include('./home-partials/headLink.ejs') -%>
+</head>
+<body>
+
+<div class="preloader orange-gradient">
+<div class="preloader-wrapper">
+<div class="preloader-grid">
+<div class="preloader-grid-item preloader-grid-item-1"></div>
+<div class="preloader-grid-item preloader-grid-item-2"></div>
+<div class="preloader-grid-item preloader-grid-item-3"></div>
+<div class="preloader-grid-item preloader-grid-item-4"></div>
+<div class="preloader-grid-item preloader-grid-item-5"></div>
+<div class="preloader-grid-item preloader-grid-item-6"></div>
+<div class="preloader-grid-item preloader-grid-item-7"></div>
+<div class="preloader-grid-item preloader-grid-item-8"></div>
+<div class="preloader-grid-item preloader-grid-item-9"></div>
+</div>
+</div>
+</div>
+
+<%- include('./home-partials/navLink.ejs') -%>
+
+<header class="page-title page-bg" style="background: linear-gradient(90deg,#0856e6 0%,#2f74f4 100%);">
+    <div class="logo-bg-icon">
+        <div class="logo-bg-item">
+        <img src="assets/home/images/circle.png" alt="icon">
+        </div>
+        <div class="logo-bg-item">
+        <img src="assets/home/images/square.png" alt="icon">
+        </div>
+        </div>
+    <div class="container">
+    <div class="page-title-inner">
+    <div class="section-title">
+    <h1>Investment Plans</h1>
+    <ul class="page-breadcrumbs">
+    <li><a href="/">Home</a></li>
+    <li>Investment Plans</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+</header>
+
+
+
+<section class="pricing-section p-tb-100">
+    <div class="container">
+        <h3 style="text-align:center;" class="home-about-title">
+            Investment Plans
+        </h3>
+    <div class="pricing-box-grid">
+        <% normalInvestments.forEach(investment=>{ %>
+            <div style="box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;" class="pricing-grid-item">
+                <div class="pricing-grid-item-inner">
+                <div class="pricing-item-header">
+                <h3><img src="assets/home/images/pricing-check.png" alt="icon"> <%= investment.title %></h3>
+                </div>
+                <div class="pricing-item-amount">
+                   <% if(!investment.min){ %>
+                        <h4 style="font-size:20px"> < <small>$</small> <%= investment.max.toLocaleString('en-US') %></h4>
+                   <% }else{ %>
+                        <h4 style="font-size:20px"><small>$</small> <%= investment.min.toLocaleString('en-US') %> -  <small>$</small> <%= investment.max.toLocaleString('en-US') %></h4>
+                   <% } %>
+                </div>
+                <div class="pricing-item-body">
+                <ul class="pricing-item-list">
+                  <%  if(investment.min){ %>
+                        <li><img src="assets/home/images/pricing-arrow.png" alt="icon" class="pricing-list-arrow">Min Deposit of <span style="margin-left: .6rem;"><small>$</small><%= investment.min.toLocaleString('en-US') %></span></li>
+                   <% } %>
+                <li><img src="assets/home/images/pricing-arrow.png" alt="icon" style="font-size:16px !important" class="pricing-list-arrow">Max Deposit of <span style="margin-left: .6rem;"><small>$</small><%= investment.max.toLocaleString('en-US') %></span></li>
+                <li><img src="assets/home/images/pricing-arrow.png" alt="icon" class="pricing-list-arrow">Commission: <%= investment.roi %> %</li>
+                <li><img src="assets/home/images/pricing-arrow.png" alt="icon" class="pricing-list-arrow">Duration: <%= investment.duration %> days<span class="pricing-list-info"><i class='bx bxs-info-circle'></i></span></li>
+                </ul>
+                <a href="/invest" class="btn1 orange-gradient btn-with-image">
+                <i class="flaticon-login"></i>
+                <i class="flaticon-login"></i>
+                Get started
+                </a>
+                </div>
+                </div>
+                </div>    
+       <% }) %>
+       <div style="box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;" class="pricing-grid-item">
+        <div class="pricing-grid-item-inner">
+        <div class="pricing-item-header">
+        <h3><img src="assets/home/images/pricing-check.png" alt="icon"> <%=  cyclesInvestment.title %></h3>
+        <h5 class="text-center text-primary my-2">cycles</h5>
+        </div>
+        <div class="pricing-item-amount pricing_gold">
+            <% if(!cyclesInvestment.max){ %>
+              <h4 style="font-size:20px" class="text-white"><small >$</small><%= cyclesInvestment.min %> - unlimited</h4>
+           <% }else{ %>
+            <h4 style="font-size:20px" class="text-white"><small >$</small><%= cyclesInvestment.min %> - <%= cyclesInvestment.max %></h4>
+           <% } %>
+          </div>
+        <div class="pricing-item-body">
+        <ul class="pricing-item-list">
+            <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">  <%= cyclesInvestment.roi %> (ROI)/day</li>
+            <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> <%= cyclesInvestment.days_cycle %> days/cycle</li>
+        </ul>
+        <a href="/invest" class="btn1 orange-gradient btn-with-image">
+        <i class="flaticon-login"></i>
+        <i class="flaticon-login"></i>
+        Get started
+        </a>
+        </div>
+        </div>
+        </div>  
+    </div>
+    </div>
+    </section>
+
+<%- include('./home-partials/footer.ejs') -%>
+
+</html>

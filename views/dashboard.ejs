@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title> Your Dashboard </title>
+    <!-- headLinks -->
+  <%- include("./partials/headLinks.ejs") -%>
+  <!-- ### headLinks ### -->
+    <style>
+    .app-brand-logo img, .app-brand-logo svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    }
+    .bg-info-light{
+      background: rgba( 3, 195, 236, 0.1) !important;
+    }
+    </style>
+  </head>
+
+  <body class="body-linear">
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include("./partials/sidenav.ejs") -%>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme card-color"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center ms-auto me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm text-white"></i>
+              </a>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="row ">
+                            <!-- welcome (first grid) -->
+                            <div class="col-12 mb-4 ">
+                                <div class="card" style="background-color: #8f169c;">
+                                  <div class="d-flex align-items-end row">
+                                    <div class="col-sm-7">
+                                      <div class="card-body">
+                                        <h5 class="card-title text-primary">Welcome <%= user.firstName %>! 🎉</h5>
+                                        <p class="mb-4 text-white">
+                                          Hope your day is a blast!, let's put your money to work
+                                        </p>
+              
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-5 text-center text-sm-left">
+                                      <div class="card-body pb-0 px-0 px-md-4">
+                                        <img
+                                          src="../assets/img/illustrations/man-with-laptop-light.png"
+                                          height="140"
+                                          alt="View Badge User"
+                                          data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                          data-app-light-img="illustrations/man-with-laptop-light.png"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- #### -->
+                            <div class="col-md-6 mb-4 ">
+                                <%- include("./partials/ballances/fundingBallance.ejs") -%>
+                              </div>
+
+                              <!-- removed the expected profit -->
+
+                              <div class="col-md-6 mb-4 ">
+                               <%- include("./partials/ballances/shortTermBallance.ejs") -%>
+                              </div>
+                              <div class="col-md-6 mb-4 ">
+                                <%- include("./partials/ballances/cyclesBallance.ejs") -%>
+                              </div>
+                              <div class="col-md-6 mb-4 ">
+                                <%- include("./partials/ballances/runningInvestments.ejs") -%>
+                              </div>
+                              <div class="col-md-6 mb-4 ">
+                                <%- include("./partials/ballances/runningCycles.ejs") -%>
+                              </div>
+                              <div class="col-12 mb-4">
+                                <div class="card h-100 card-color">
+                                  <div class="card-header d-flex align-items-center justify-content-between">
+                                    <h5 class="card-title m-0 me-2 text-white"> Activities </h5>
+                                  </div>
+                                  <% if(user.activities.length){ %>
+                                    <div class="card-body">
+                                      <ul class="p-0 m-0">
+                                        <%user.activities.forEach(activity=>{%>
+                                          <%if(activity.type == 'transfer'){%>
+                                            <li class="d-flex mb-4 pb-1">
+                                              <div class="avatar flex-shrink-0 me-3">
+                                                <!-- <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded"> -->
+                                                <i class='bx bx-transfer text-primary bg-info-light'></i>
+                                              </div>
+                                              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="me-2">
+                                                  <small class=" d-block mb-1 text-white text-capitalize"> <%=activity.from.replace('Ballance', " balance")%></small>
+                                                  <h6 class="mb-0 text-muted text-capitalize"> <%=activity.to.replace('Ballance', " balance") %></h6>
+                                                </div>
+                                                <div class="user-progress gap-1">
+                                                  <h6 class="mb-0 text-end text-success">+ $<%=activity.amount.toLocaleString()%></h6>
+                                                  <span class="small"> <%= format(activity.createdAt, 'd/MM/y') %></span>
+                                                </div>
+                                              </div>
+                                            </li>
+                                          <%}else{%>
+                                            <li class="d-flex mb-4 pb-1">
+                                              <div class="avatar flex-shrink-0 me-3">
+                                                <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded">
+                                              </div>
+                                              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="me-2">
+                                                  <small class="text-white d-block mb-1 text-capitalize"> <%= activity.from %> </small>
+                                                  <h6 class="mb-0 text-muted text-capitalize"> credit </h6>
+                                                </div>
+                                                <div class="user-progress gap-1">
+                                                  <h6 class="mb-0 text-end text-success">+ $<%=activity.amount.toLocaleString()%></h6>
+                                                  <span class="small"> <%= format(activity.createdAt, 'd/MM/y') %></span>
+                                                </div>
+                                              </div>
+                                            </li>
+                                          <%}%>
+                                       <% }) %>
+                                      </ul>
+                                    </div>
+                                <%  }else{ %>
+                                    <div class="card-body">
+                                      <p class="text-center"> You have no activity yet</p>
+                                    </div>
+                                 <% } %>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    	<%- include("./partials/footerLinks.ejs") -%>
+
+      <!-- hide ballances -->
+      <%- include("./partials/hideBallance.ejs") -%>
+      <!-- ###### -->
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title> Deposit into your account </title>
+    <!-- headLinks -->
+  <%- include("./partials/headLinks.ejs") -%>
+  <!-- ### headLinks ### -->
+    <style>
+    .app-brand-logo img, .app-brand-logo svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    }
+    </style>
+  </head>
+
+  <body class="body-linear">
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include("./partials/sidenav.ejs") -%>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme card-color"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center ms-auto me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm text-white"></i>
+              </a>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                              <%- include("./partials/ballances/fundingBallance.ejs") -%>
+                            </div>
+                        </div> 
+                        <div class="row justify-content-center">
+                            <div class="col-12 mb-4">
+                                <div class="card h-100 card-color">
+                                  <div class="card-header d-flex align-items-center justify-content-between">
+                                    <h5 class="card-title m-0 me-2 text-white"> Transaction History </h5>
+                                    <div class="dropup">
+                                      <button class="btn p-0 dropup" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="bx bx-dots-vertical-rounded text-white"></i>
+                                      </button>
+                                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID" >
+                                        <div class="dropdown-item px-3 py-2 mt-3">
+                                            <input name="default-radio-1" class="form-check-input" type="radio" value="all" id="defaultRadio1" checked>
+                                            <label class="form-check-label" for="defaultRadio1"> All </label>
+                                          </div>
+                                          <div class="dropdown-item px-3 py-2 mt-3">
+                                            <input name="default-radio-1" class="form-check-input" type="radio" value="withdraw" id="defaultRadio2" >
+                                            <label class="form-check-label" for="defaultRadio2"> Withdrawal </label>
+                                          </div>
+                                          <div class="dropdown-item px-3 py-2 mt-3">
+                                            <input name="default-radio-1" class="form-check-input" type="radio" value="deposit" id="defaultRadio2" >
+                                            <label class="form-check-label" for="defaultRadio2"> Deposits </label>
+                                          </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card-body">
+                                    <ul class="p-0 m-0">
+                                      <%if(transactions.length){%>
+                                        <% transactions.sort(function(a,b){ new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() }).forEach(item => { %>
+                                          <li class="d-flex mb-4 pb-1" data-title="<%= item.title %>">
+                                            <%if(item.title == "deposit") {%>
+                                              <div class="avatar flex-shrink-0 me-3">
+                                                <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded">
+                                              </div>
+                                              <%}else{%>
+                                                <div class="avatar flex-shrink-0 me-3">
+                                                  <img src="../assets/img/icons/unicons/cc-warning.png" alt="User" class="rounded">
+                                                </div>
+                                              <%}%>
+                                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                              <% let style = item.status == "approved" ? 'text-success' : (item.status == "declined") ? 'text-danger' : 'text-info'; %> 
+                                              <div class="me-2">
+                                                <small class="text-white d-block mb-1 text-white text-capitalize"> <%= item.title %></small>
+                                                <h6 class="mb-0 <%= style %> "> <%= item.status %></h6>
+                                              </div>
+                                              <div class="user-progress gap-1">
+                                                <h6 class="mb-0 <%= style %>"> $<%= item.amount.toLocaleString() %></h6>
+                                                <span class="text-muted small"><%= format(item.createdAt, "d/MM/y") %></span>
+                                              </div>
+                                            </div>
+                                          </li>
+                                       <% })%>
+                                      <%}else{%>
+                                        <li class="d-flex mb-4 pb-1">
+                                          you have no transactions
+                                        </li>
+                                        <%}%>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                        </div> 
+                     </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    	<%- include("./partials/footerLinks.ejs") -%>
+      <!-- hide balances -->
+      <%- include("./partials/hideBallance.ejs") -%>
+      <!-- ###### -->
+      <script>
+        list = Array.from(document.querySelectorAll('.card-body li'))
+        document.querySelectorAll("input[type='radio']").forEach(input=>{
+          input.addEventListener('change', function(e){
+            if(input.checked){
+              if(input.value== 'all'){
+                 return list.forEach(li=> li.classList.remove('d-none'))
+              }else{
+                list.forEach(li=> {
+                  if(li.getAttribute('data-title') != input.value){
+                    li.classList.add("d-none")
+                  }else{
+                    li.classList.remove('d-none')
+                  }
+                })
+              }
+            }
+          })
+        })
+      </script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

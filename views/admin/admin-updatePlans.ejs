@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title> Buy Stocks | invetments </title>
+    <!-- headLinks -->
+  <%- include("../partials/headLinks.ejs") -%>
+  <!-- ### headLinks ### -->
+    <style>
+    .app-brand-logo img, .app-brand-logo svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    }
+    .plan-sec-img{
+      width: 20px;
+    }
+    .nav-align-top > .tab-content,
+     .nav-align-right > .tab-content, 
+     .nav-align-bottom > .tab-content,
+      .nav-align-left > .tab-content {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    .display-1 {
+    font-size: calc(2rem + 3.3vw);
+    }
+    .list-group-item{
+      margin-bottom: 0px;
+    }
+    ul.pricing-item-list{
+        list-style-type: none;
+        }
+        .pricing-grid-item-inner:hover .pricing-item-amount:before{
+            width: 100%;
+            background-color: red;
+            left: 100%;
+        }
+        .pricing-item-list li {
+        color: #636363;
+        font-size: 18px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+        align-items: baseline;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .pricing-item-list li .pricing-list-arrow {
+          -webkit-box-flex: 0;
+          flex: 0 0 15px;
+          -ms-flex: 0 1 auto;
+          max-width: 15px;
+          width: 15px;
+          margin-right: 12px;
+          font-size: 15px;
+      }
+      .pricing-item-amount {
+      padding: 30px;
+      text-align: center;
+      -webkit-transition: all .3s linear;
+      transition: all .3s linear;
+      position: relative;
+      }
+      .default{
+        background-color: rgba(41,72,255,.2) ;
+      }
+      .pricing_0{
+          background-color: rgba(41,72,255,.2) !important;
+      }
+      .pricing_1{
+      background-color:rgba(41, 255, 105, 0.2)!important ;
+      }
+      .pricing_2{
+      background-color:rgba(255, 102, 41, 0.2)!important ;
+      }
+      .pricing_3{
+      background-color:rgba(0, 0, 0, 0.2)!important ;
+      }
+      .pricing_gold{
+        background-color: rgba(255, 170, 0, 0.5) !important;
+      }
+      .pricing-item-amount h4 {
+      font-size: 49px;
+      font-weight: 400;
+      color: #2948ff;
+      position: relative;
+      -webkit-transition: all .5s linear;
+      transition: all .5s linear;
+      }
+      .pricing-item-body {
+      padding: 20px;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+  }
+  .pricing-item-list li .pricing-list-arrow {
+    -webkit-box-flex: 0;
+    flex: 0 0 15px;
+    -ms-flex: 0 1 auto;
+    max-width: 15px;
+    width: 15px;
+    margin-right: 12px;
+    font-size: 15px;
+}
+.pricing-item-list li .pricing-list-arrow {
+  -webkit-box-flex: 0;
+  flex: 0 0 15px;
+  -ms-flex: 0 1 auto;
+  max-width: 15px;
+  width: 15px;
+  margin-right: 12px;
+  font-size: 15px;
+    }
+.pricing-item-body .btn1 {
+    color: #fff;
+    margin-top: auto;
+}
+
+.orange-gradient {
+    background: -webkit-gradient(linear,left top,right top,from(#f20f10),to(#ec600d));
+    background: linear-gradient(90deg,#f20f10 0%,#ec600d 100%);
+}
+#myAlert{
+        top: -300px;
+        -webkit-transition: top .7s ease-in-out;
+        -o-transition: top .7s ease-in-out;
+        transition: top .7s ease-in-out;
+        max-width: 500px;
+        margin: 0 auto ;
+        z-index: 10;
+        position: absolute;
+        width: 100%; 
+        left: 50%;
+        -webkit-transform: translateX(-50%) ;
+        -moz-transform: translateX(-50%) ;
+        transform: translateX(-50%) ;
+    }
+    .move{
+        top: 150px !important;
+    }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include("./partials/admin-sidenav.ejs") -%>
+        <!-- / Menu -->
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center ms-auto me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+          <% if(messages.error){ %>
+            <div class="alert alert-primary  text-center alert-dismissible move" role="alert" id="myAlert">
+                <%= messages.error %>
+              </div>
+              <script>
+           setTimeout(function () {
+           return myAlert.classList.remove("move");
+           }, 3000);
+              </script>
+          <% } %>
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 col-lg-11">
+                        <div class="row ">
+                            <div class="col-12">
+                                <div class="nav-align-top mb-4">
+                                  <ul class="nav nav-pills mb-3" role="tablist">
+                                    <li class="nav-item">
+                                      <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home" aria-selected="true">
+                                        single plans
+                                      </button>
+                                    </li>
+                                    <li class="nav-item">
+                                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile" aria-selected="false">
+                                        marrathon cycle
+                                      </button>
+                                    </li>
+                                  </ul>
+                                  <div class="tab-content px-0">
+                                      <!-- first pane -->
+                                    <div class="tab-pane fade active show" id="navs-pills-top-home" role="tabpanel">
+                                      <div class="container">
+                                        <div class="row justify-content-center">
+                                         <% normalInvestments.sort((a,b)=> a.max - b.max ).forEach((investment, index)=>{%>
+                                            <div class="col-md-6 col-lg-4 mb-3">
+                                              <div class="card">
+                                                <div class="py-2">
+                                                  <div class="pricing-grid-item-inner">
+                                                    <div class="pricing-item-header py-3">
+                                                    <h3 class="text-center px-3"><img src="/assets/images/dashboard/pricing-check.png" alt="icon"> <%= investment.title %></h3>
+                                                    </div>
+                                                    <div class="pricing-item-amount default pricing_<%=index%> ">
+                                                      <%# if min investment is less than one#%>
+                                                      <% if(!investment.min){ %>
+                                                        <h4 style="font-size:20px"> < <small >$</small> <%= investment.max %> </h4>
+                                                      <%}else{ %>
+                                                        <h4 style="font-size:20px"><small >$</small> <%= investment.min.toLocaleString('en-US') %> - <%= investment.max.toLocaleString('en-US') %> </h4>
+                                                     <% } %>
+                                                    </div>
+                                                    <div class="pricing-item-body px-3">
+                                                    <ul class="pricing-item-list">
+                                                    <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">  <%= investment.roi %>% (ROI)</li>
+                                                    <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">Duration : <%= investment.duration %> days</li>
+                                                    </ul>
+                                                    <form method="POST" class="my-2 w-100">
+                                                      <input type="hidden" name="title" class="form-control" value="<%= investment.title %>">
+                                                      <input type="hidden" name="type" class="form-control" value="normalInvestments">
+                                                      <button class="btn btn-outline-danger form-control" name="button" value="delete"> delete</button>
+                                                    </form>
+                                                    </div>
+                                                    
+                                                </div>
+                                              </div>
+                                            </div>
+                                            </div>
+                                        <%  }) %>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                          <div class="col-md-12 col-lg-6 mb-3">
+                                          <div class="card mb-4">
+                                              <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0"> SHORT INVESTMENTS</h5>
+                                              </div>
+                                              <div class="card-body">
+                                                <form method="POST">
+                                                  <input type="hidden" name="type" class="form-control" value="normalInvestments">
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-fullname"> Title</label>
+                                                    <input type="text" class="form-control" name='title' id="1basic-default-fullname" placeholder="Investment title" required>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-company">min</label>
+                                                    <input type="number" class="form-control" name='min' id="1basic-default-company" placeholder="minimum investment" required>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-max">max</label>
+                                                      <input type="number" id="1basic-default-max" name="max" class="form-control" required placeholder="maximum investment" aria-label="john.doe" aria-describedby="basic-default-email2">
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-phone">Percentage</label>
+                                                    <input type="number" id="1basic-default-phone" name="roi" class="form-control phone-mask" required placeholder="percentage return (ROI)">
+                                                  </div>
+                                                  <div class="mb-3">
+                                                      <label class="form-label" for="basic-default-cycles">Duration</label>
+                                                      <input type="number" id="1basic-default-cycles" name='duration' class="form-control phone-mask" required placeholder="Duration of investment">
+                                                    </div>
+                                                  <button type="submit" class="btn btn-primary" name="button" value="add" >Add</button>
+                                                </form>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <!-- ## first pane ## -->
+
+                                    <!-- second pane -->
+                                    <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
+                                      <div class="container">
+                                        <div class="row">
+                                          <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="card">
+                                              <div class="py-2">
+                                                <div class="pricing-grid-item-inner">
+                                                  <div class="pricing-item-header py-3">
+                                                  <h3 class="text-center px-3"><img src="/assets/images/dashboard/pricing-check.png" alt="icon"> <%= admin.cyclesInvestment.title %> </h3>
+                                                  </div>
+                                                  <div class="pricing-item-amount pricing_gold">
+                                                   <% if(!admin.cyclesInvestment.max){ %>
+                                                      <h4 style="font-size:20px" class="text-white"><small >$</small><%= admin.cyclesInvestment.min %> - unlimited</h4>
+                                                   <% }else{ %>
+                                                    <h4 style="font-size:20px" class="text-white"><small >$</small><%= admin.cyclesInvestment.min %> - <%= admin.cyclesInvestment.max %></h4>
+                                                   <% } %>
+                                                  </div>
+                                                  <div class="pricing-item-body px-3">
+                                                  <ul class="pricing-item-list">
+                                                  <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">  <%= admin.cyclesInvestment.roi %> (ROI)/day</li>
+                                                  <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> minimum of <%= admin.cyclesInvestment.min_cycle_b4_with %> cycles</li>
+                                                  </ul>
+                                                  <!-- <form method="post" class="my-2 w-100">
+                                                    <input type="hidden" name="roi" class="form-control" value="30">
+                                                    <input type="hidden" name="min" class="form-control" value="50">
+                                                    <input type="hidden" name="type" class="form-control" value="cyclesBallance">
+                                                    <div class="py-2">
+                                                      <input type="number" name="amount" class="form-control" placeholder="put amount">
+                                                    </div>
+                                                    <button class="btn btn-outline-primary form-control "> invest</button>
+                                                  </form> -->
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        </div> 
+                                        <div class="row justify-content-center">
+                                          <div class="col-md-12 col-lg-6 mb-3">
+                                          <div class="card mb-4">
+                                              <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0"> CYCLES INVESTMENTS</h5>
+                                              </div>
+                                              <div class="card-body">
+                                                <form method="POST">
+                                                  <input type="hidden" name="type" value="cyclesInvestment">
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-fullname"> title</label>
+                                                    <input type="text" name="title" class="form-control" id="basic-default-fullname" required placeholder="Investment title">
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-company">min</label>
+                                                    <input type="number" name="min" class="form-control" id="basic-default-company" placeholder="minimum investment" required>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-max">max</label>
+                                                      <input type="number" name="max" id="basic-default-max" class="form-control" placeholder="maximum investment (leave empty for unlimited)" aria-label="john.doe" aria-describedby="basic-default-email2">
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label class="form-label" for="basic-default-phone">Percentage</label>
+                                                    <input type="number" name="roi" id="basic-default-phone" class="form-control phone-mask" required placeholder="percentage return (ROI)">
+                                                  </div>
+                                                  <div class="mb-3">
+                                                      <label class="form-label" for="basic-default-cycles">minimum number of cycles</label>
+                                                      <input type="number" name="min_cycle_b4_with" id="basic-default-cycles" class="form-control phone-mask" required placeholder="number of cycles">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                      <label class="form-label" for="basic-default-cycles">days per cycles</label>
+                                                      <input type="number" name="days_cycle" id="basic-default-cycles" required class="form-control phone-mask" placeholder="How many days make one cycle">
+                                                    </div>
+                                                  <button type="submit" class="btn btn-primary" name="button" value="add" > Update</button>
+                                                </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                    <!-- ## second pane ## -->
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+   
+    	<%- include("../partials/footerLinks.ejs") -%>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

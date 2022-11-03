@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title> Your Dashboard </title>
+    <!-- headLinks -->
+  <%- include("../partials/headLinks.ejs") -%>
+  <!-- ### headLinks ### -->
+    <style>
+    .app-brand-logo img, .app-brand-logo svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    }
+    .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
+    color: #696cff;
+    background-color: rgba(255, 105, 230, 0.16) !important;
+    }
+    .avatar-container{
+      background-color: rgba(120, 105, 255, 0.16) ;
+      border-radius: 10px;
+    }
+    li.user-short{
+      cursor: pointer;
+    }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include("./partials/admin-sidenav.ejs") -%>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center ms-auto me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+ 
+                <!-- Modal -->
+                <div class="modal fade" id="modalCenter" tabindex="-1" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                      <div class=" mb-4">
+                        <div class="card-body">
+                          <form method="POST">
+                            <input type="hidden" name="email" id="email">
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-fullname">First Name</label>
+                              <input type="text" class="form-control" id="FN" disabled>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="basic-default-company">Email</label>
+                              <input type="text" class="form-control bg-muted"  id="email_con" disabled>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" >password</label>
+                                <input type="text" class="form-control"  id="password" disabled>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" >wallet Address</label>
+                                <input type="text" class="form-control"  id="address" disabled>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" >Referrals</label>
+                                <input type="text" class="form-control"  id="referrals" disabled>
+                            </div>
+                            <hr>
+                            <div class="mb-3" id="disallowedHolder">
+                                <h5> Disallowed plans</h5>
+                              <%admin.normalInvestments.forEach(plan=>{%>
+                                <label class="form-label ms-1 d-inline-block" > <%= plan.title %></label>
+                                <input type="checkbox" class=""  id="a<%= plan._id %>" name="disallowedPlans" value="<%= plan._id %>">
+                              <%})%>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                              <label class="form-label" >funding Balance</label>
+                              <input type="number" class="form-control phone-mask" name="fundingBallance" id="fundingBallance">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" >cycles Balance</label>
+                              <input type="number" class="form-control phone-mask" name="cyclesBallance" id="cyclesBallance">
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" >short-term Balance</label>
+                              <input type="number" class="form-control" name="shortBallance" id="shortBallance">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                              <button type="submit" class="btn btn-primary" name="button" value="update"> update</button>
+                              <button type="submit" class="btn btn-danger"  name="button" value="delete">delete</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                      <div class="row">
+                             <!-- welcome (first grid) -->
+                             <div class="col-12 mb-4 ">
+                              <div class="card">
+                                <div class="d-flex align-items-end row">
+                                  <div class="col-sm-7">
+                                    <div class="card-body">
+                                      <h5 class="card-title text-primary">Welcome Boss! 🎉</h5>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-5 text-center text-sm-left">
+                                    <div class="card-body pb-0 px-0 px-md-4">
+                                      <img
+                                        src="../assets/img/illustrations/man-with-laptop-light.png"
+                                        height="140"
+                                        alt="View Badge User"
+                                        data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                        data-app-light-img="illustrations/man-with-laptop-light.png"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          <!-- #### -->
+                      </div>
+                        <div class="row">
+                          <div class="col-12 mb-4">
+                            <div class="card h-100">
+                              <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="card-title m-0 me-2"> Accounts </h5>
+                              </div>
+                              <div class="card-body">
+                                <ul class="px-0 m-0 b-0 bg-white">
+                                 <% if(users.length){ %>
+                                    <% users.forEach(user=>{ %>
+                                      <li class="d-flex mb-4 pb-1 user-short align-items-center bg-white" type="button" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                                        <input type="hidden" target-value="#email" value="<%=user.email%>">
+                                        <input type="hidden" target-value="#email_con" value="<%=user.email%>">
+                                        <input type="hidden" target-value="#FN" value="<%=user.firstName%>">
+                                        <input type="hidden" target-value="#address" value="<%=user.walletAddress%>">
+                                        <input type="hidden" target-value="#fundingBallance" value="<%=user.fundingBallance%>">
+                                        <input type="hidden" target-value="#cyclesBallance" value="<%=user.cyclesBallance%>">
+                                        <input type="hidden" target-value="#shortBallance" value="<%=user.shortBallance%>">
+                                        <input type="hidden" target-value="#referrals" value="<%= user.referrals.join('--') %>">
+                                        <% user.disallowedPlans.forEach(plan=>{ %>
+                                          <input type="hidden" value='<%= plan %>' name='disallow' target-value="#a<%= plan %>" >
+                                        <%})%>
+                                        <input type="hidden" target-value="#password" value="<%=user.password%>">
+                                        <input type="hidden" target-value="#client" name="client" value="<%=user.client %>">
+                                        <input type="hidden" target-value="#joined" value="<%= format(user.createdAt, 'dd/MM/y') %>">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                          <div class="avatar-container h-100 d-flex align-items-center justify-content-center">
+                                            <i class="bx bx-user"></i>
+                                          </div>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                          <div class="">
+                                            <small class="text-muted d-block mb-1"> <%= user.email %></small>
+                                            <h6 class="mb-0"> <%= user.fundingBallance.toLocaleString('en-US') %></h6>
+                                          </div>
+                                          <div class="user-progress gap-1">
+                                            <h6 class="mb-0"> <%= formatDistanceToNow(user.lastLoggedIn) %></h6>
+                                            <span class="text-muted"> last seen </span>
+                                          </div>
+                                        </div>
+                                      </li>
+                                  <%  }) %>
+                                  <%}else{ %>
+                                    <li class="mb-4 pb-1 user-short text-center text-muted">
+                                      you have no users yet
+                                      </li>
+                                 <% } %>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    	<%- include("../partials/footerLinks.ejs") -%>
+
+      <script>
+      var modal = document.querySelector("#modalCenter")
+        document.querySelectorAll("li").forEach(li => {
+        li.addEventListener('click', function(){
+          li.querySelectorAll("input[type='hidden']").forEach(input=>{
+            // since _id's start with number and you cant start a css id with no, i added "a" to the front
+            if(input.getAttribute('name')== 'disallow'){
+              modal.querySelector(input.getAttribute('target-value')).checked = true
+            }else{
+              modal.querySelector(input.getAttribute('target-value')).value = input.value
+            }
+          })
+        })
+      });
+      modal.addEventListener('hide.bs.modal', function (event) {
+          modal.querySelectorAll('#disallowedHolder input').forEach(check => check.checked = false)
+      })
+      // now on close modal remove all checked elements
+      </script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

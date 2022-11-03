@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title> Deposit into your account </title>
+    <!-- headLinks -->
+  <%- include("./partials/headLinks.ejs") -%>
+  <!-- ### headLinks ### -->
+    <style>
+    .app-brand-logo img, .app-brand-logo svg {
+    display: block;
+    width: 40px;
+    margin: 0 auto;
+    }
+    .form-check label{
+        cursor: pointer;
+    }  
+    ul.progress-group{
+        list-style: none;
+    }
+    ul li.progress-item {
+        margin: 1rem 0;
+        /* position: relative; */
+        display: flex;
+        align-items: center;
+
+    }
+    ul{
+      /* the default in core css is 2rem */
+      padding-left: 1rem;
+    }
+    li.progress-item::before{
+        display: block;
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        /* background-color:#007bff; */
+        border: 2px dashed #007bff;
+        margin-right: 10px;
+    }  
+    #myAlert{
+        top: -300px;
+        -webkit-transition: top .7s ease-in-out;
+        -o-transition: top .7s ease-in-out;
+        transition: top .7s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto ;
+        z-index: 10;
+    }
+    .move{
+        top: 150px !important;
+    }
+    </style>
+  </head>
+
+  <body class="body-linear">
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include("./partials/sidenav.ejs") -%>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme card-color"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center ms-auto me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm text-white"></i>
+              </a>
+            </div>
+          </nav>
+          <% if(messages.error){ %>
+            <div class="alert alert-primary alert-dismissible move" role="alert" id="myAlert">
+                <%= messages.error %>
+              </div>
+              <script>
+                setTimeout(function () {
+                return myAlert.classList.remove("move");
+                }, 3000);
+              </script>
+          <% }else{ %>
+            <div class="alert alert-primary alert-dismissible" role="alert" id="myAlert">
+            </div>
+         <% } %>
+          <!-- / Navbar -->
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                              <%- include("./partials/ballances/fundingBallance.ejs") -%>
+                            </div>
+                        </div>  
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg 8">
+                                <div class="card mb-4 card-color">
+                                    <div class="card-body">
+                                        <form method="POST">
+                                         <h3 class="text-white"> Withdraw</h3>
+                                          <div class="mb-3">
+                                            <label class="form-label text-white" for="withdrawalAmount">Amount</label>
+                                            <input type="number" name="amount" class="form-control phone-mask" id="withdrawalAmount" placeholder="withdraw from availabe balance">
+                                          </div>
+                                          <button type="submit" class="btn btn-primary"> withdraw</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card mb-4 card-color">
+                                        <h4 class="card-header text-white">
+                                            Before withdrawal
+                                        </h4>
+                                        <ul class="progress-group text-white">
+                                            <li class="progress-item"> you can only withdraw from funding balance</li>
+                                            <li class="progress-item">  fill in your wallet address in account settings</li>
+                                            <li class="progress-item"> Go ahead with withdrawal</li>
+                                            <li class="progress-item"> An email will be sent to you (check your spam)</li>
+                                        </ul>
+                                </div>
+                            </div>
+                        </div> 
+                     </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+      <%- include("./partials/footerLinks.ejs") -%>
+      <!-- hide ballace script -->
+      <%- include("./partials/hideBallance.ejs") -%>
+      <!-- #### -->
+<script>
+    
+        const ballance = Number(document.getElementById("ballance").getAttribute("data-amount"))
+
+        document.querySelector("form").addEventListener("submit", function(e){
+          e.preventDefault()
+          if(!Number(document.getElementById("withdrawalAmount").value)){
+            return e.preventDefault()
+          }
+           if(Number(document.getElementById("withdrawalAmount").value) > ballance){
+             console.log("cannot pass")
+            e.preventDefault()
+            var myAlert = document.getElementById('myAlert');
+            myAlert.innerText = "Insufficient Ballance";
+            myAlert.classList.add("move");
+            return setTimeout(function () {
+            return myAlert.classList.remove("move");
+            }, 3000);
+           }
+           return document.querySelector("form").submit()
+        })
+
+</script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>
