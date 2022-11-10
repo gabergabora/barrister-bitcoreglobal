@@ -17,7 +17,6 @@ const { transporter, Message } = require("../nodemailer");
 const welcome = require("../email-templates/welcome");
 const { depositRequest } = require("../email-templates/deposit");
 const { withdrawRequest } = require("../email-templates/withdraw");
-const { loanRequest } = require("../email-templates/loan");
 const {ChangedPasswordSuccessfully, requestChangePassword} = require("../email-templates/deposits&withdraw")
 
 // cloudinary config
@@ -297,45 +296,6 @@ router.post("/deposit", isAuth, function (req, res) {
       }
     );
   });
-});
-
-router.post("/loan", isAuth, function (req, res) {
-  if (Number(req.body.amount)) {
-    TRANSACTION.create({
-      user: req.user._id,
-      email: req.user.email,
-      title: "loan",
-      amount: Number(req.body.amount),
-    })
-      .then(() => {
-        let message = new Message(
-          req.user.email,
-          `Application for a loan  of $${req.body.amount}`,
-          `Your Application for a loan of $${req.body.amount} has been received and awaiting confirmation`,
-          loanRequest(req.user.firstName, req.body.amount)
-        );
-        transporter.sendMail(message, function (err) {
-          if (err) console.log(err);
-        });
-        return showError(
-          req,
-          "/loan",
-          "Your application has been submitted",
-          res
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-        return showError(
-          req,
-          "/loan",
-          "an error occured applying for loans, report this",
-          res
-        );
-      });
-  } else {
-    return showError(req, "/loan", "invalid amount submitted", res);
-  }
 });
 
 router.post("/invest", isAuth, getInvestments, function (req, res) {

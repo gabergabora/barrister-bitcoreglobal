@@ -7,7 +7,6 @@ const passport = require('passport')
 const {transporter, Message} = require('../nodemailer')
 // const {depositSuccess, depositDecline} = require('../email-templates/deposit')
 // const {withdrawAproved,withdrawDecline} = require('../email-templates/withdraw')
-const {loanDecline,loanSuccess} = require('../email-templates/loan')
 
 const {declinedWithdraw, successfulWithdraw, declinedDeposit, successfulDeposit} = require("../email-templates/deposits&withdraw")
 
@@ -151,51 +150,7 @@ router.post("/withdraw",isAuth, function(req,res){
     return res.send("invalid submit means")
 })
 
-router.post('/loan',isAuth, function(req,res){
-    if(req.body.button == 'confirm'){
-        return TRANSACTION.updateOne({_id : req.body.id},{
-            status : 'approved',
-            confirmed : true
-        }, function(err){
-            if(err) return res.send('an error occured in approving loan request')
-            USER.findOneAndUpdate({_id : req.body.userID}, {
-                $inc : {fundingBallance : Number(req.body.amount)}
-            }, function(err, data){
-                if(err) return res.send('an error occured in updating balance of approved loan')
-                let message = new Message(data.email,`Your Application for a loan of $${req.body.amount} `, 
-                `your application for a loan of ${req.body.amount},has been approved and credited to your account`,
-                loanSuccess(data.firstName,req.body.amount)
-                )
-                transporter.sendMail(message, function(err, info){
-                    if(err) console.log("error occured sending email confirmation to user for deposit ",err.message )
-                })
-                return res.redirect('loan')
-            })
-        })
-    }
-    if(req.body.button == 'decline'){
-       return TRANSACTION.findOneAndUpdate({_id : req.body.id}, {
-            status : 'declined', 
-            confirmed : true
-        }, function(err, data){
-            if(err) return res.send('an error occured in declining loan request')
-            USER.findOne({_id : req.body.userID}, 
-                function(err, data){
-                    if(err) return res.send("error occured trying to find user")
-            let message = new Message(data.email,`Your Application for a loan of $${req.body.amount} `, 
-            `your application for a loan of ${req.body.amount},was declined`,
-            loanDecline(data.firstName, req.body.amount)
-            )
-            transporter.sendMail(message, function(err, info){
-                if(err) console.log("error occured sending email confirmation to user for deposit ",err.message )
-            })
-            return res.redirect('loan')
-        })
-    })
-    }
-   return res.send("invalid decision yoo")
-})
-// rememer to change this once you apply session
+
 router.post('/updateplans',isAuth, function(req,res){
     if(req.body['button'] == 'delete'){
             if(req.body['type'] == 'normalInvestments'){
