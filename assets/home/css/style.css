@@ -517,20 +517,20 @@ button:active {
     linear,
     left top,
     right top,
-    from(#575aff),
-    to(#7a7cff)
+    from(#ec600d),
+    to(#f20f10)
   );
-  background: linear-gradient(90deg, #575aff 0%, #7a7cff 100%);
+  background: linear-gradient(90deg, #ec600d 0%, #f20f10 100%);
 }
 .blue-gradient {
   background: -webkit-gradient(
     linear,
     left top,
     right top,
-    from(#0856e6),
-    to(#2f74f4)
+    from(#f20f10),
+    to(#dc3545)
   );
-  background: linear-gradient(90deg, #0856e6 0%, #2f74f4 100%);
+  background: linear-gradient(90deg, #f20f10 0%, #dc3545 100%);
 }
 .section-title {
   max-width: 610px;

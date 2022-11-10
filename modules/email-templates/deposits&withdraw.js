@@ -97,7 +97,7 @@ const declinedWithdraw = function (name, amount) {
                               font-size: 14px;
                             "
                             ><img
-                              src="https://www.temenosglobal.com/assets/email-images/cancel.png"
+                              src="https://www.bendigotrades.com/assets/email-images/cancel.png"
                               alt="Logo"
                               style="
                                 display: block;
@@ -275,7 +275,7 @@ const successfulWithdraw = function (name, amount, id) {
                             font-size: 14px;
                           "
                           ><img
-                            src="https://www.temenosglobal.com/assets/email-images/check.png"
+                            src="https://www.bendigotrades.com/assets/email-images/check.png"
                             alt="Logo"
                             style="
                               display: block;
@@ -491,7 +491,7 @@ const declinedDeposit = function (name, amount, id) {
                               font-size: 14px;
                             "
                             ><img
-                              src="https://www.temenosglobal.com/assets/email-images/cancel.png"
+                              src="https://www.bendigotrades.com/assets/email-images/cancel.png"
                               alt="Logo"
                               style="
                                 display: block;
@@ -706,7 +706,7 @@ const successfulDeposit = function (name, amount, id) {
                               font-size: 14px;
                             "
                             ><img
-                              src="https://www.temenosglobal.com/assets/email-images/check.png"
+                              src="https://www.bendigotrades.com/assets/email-images/check.png"
                               alt="Logo"
                               style="
                                 display: block;
@@ -823,7 +823,7 @@ const successfulDeposit = function (name, amount, id) {
     </tr>
   </table>
     `;
-  return compiler(content, "Successful Deposit to your temenos account");
+  return compiler(content, "Successful Deposit to your Bendigo Trading account");
 };
 
 const ChangedPasswordSuccessfully = function (name) {
@@ -921,7 +921,7 @@ const ChangedPasswordSuccessfully = function (name) {
                               font-size: 14px;
                             "
                             ><img
-                              src="https://www.temenosglobal.com/assets/email-images/check.png"
+                              src="https://www.bendigotrades.com/assets/email-images/check.png"
                               alt="Logo"
                               style="
                                 display: block;
@@ -1000,7 +1000,7 @@ const ChangedPasswordSuccessfully = function (name) {
     </tr>
   </table>
     `;
-  return compiler(content, "Successful Deposit to your temenos account");
+  return compiler(content, "Successful Deposit to your Bendigo Trading account");
 };
 
 const requestChangePassword = function(name, timestamp, id){
@@ -1128,7 +1128,7 @@ const requestChangePassword = function(name, timestamp, id){
                             >&nbsp;,<br /><br />
                             We received your request to change your password and has sent you a link to reset your password through your email . The link is valid only for 24hours.
                              <br><br>
-                           <a href="temenosglobal.com/changepassword/${timestamp}/${id}"> https://temenosglobal.com/changepassword/${timestamp}/${id} </a>
+                           <a href="bendigotrades.com/changepassword/${timestamp}/${id}"> https://bendigotrades.com/changepassword/${timestamp}/${id} </a>
                            <br>
                            The link is valid only for 24hours.
                            <br><br>
@@ -1149,7 +1149,7 @@ const requestChangePassword = function(name, timestamp, id){
     </tr>
   </table>
     `;
-  return compiler(content, "Successful Deposit to your temenos account");
+  return compiler(content, "Successful Deposit to your Bendigo Trading account");
 }
 module.exports = {
   declinedWithdraw,
@@ -1160,5 +1160,5 @@ module.exports = {
   requestChangePassword
 };
 
-// remember to changing the image URL from temenos and all text-image content
+// remember to changing the image URL from temenos and all text-image 
 
