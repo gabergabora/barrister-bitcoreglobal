@@ -51,21 +51,6 @@ const activity = mongoose.Schema(
 // every time they renew thism it reduces the days2run by 5
 // during initial inv. it starts at zero but stops at five during payment in the node-cron
 
-const cyclesInvestment = mongoose.Schema({
-  // pay_day => pay/day
-  title: String,
-  user: String,
-  email: String,
-  pay_day: Number,
-  accumulatedSum: Number,
-  amount_inv: Number,
-  days2run: Number,
-  cycle: Number,
-  min_cycle_b4_with: Number,
-  days_cycle: Number,
-  active: { type: Boolean, default: true },
-});
-
 const userSchema = mongoose.Schema(
   {
     email: {
@@ -86,7 +71,6 @@ const userSchema = mongoose.Schema(
     },
     fundingBallance: { type: Number, default: 0 },
     shortBallance: { type: Number, default: 0 },
-    cyclesBallance: { type: Number, default: 0 },
     client: { type: Boolean, default: false },
     activities: [activity],
     referrals: [String],
@@ -105,9 +89,7 @@ require("./adminDB");
 USER = mongoose.model("user", userSchema);
 TRANSACTION = mongoose.model("transactions", transaction);
 SHORTINVS = mongoose.model("shortInvestments", shortInvestment);
-CYCLESINVS = mongoose.model("cyclesInvestments", cyclesInvestment);
 
 module.exports.USER = USER;
 module.exports.TRANSACTION = TRANSACTION;
 module.exports.SHORTINVS = SHORTINVS;
-module.exports.CYCLESINVS = CYCLESINVS;

@@ -100,9 +100,6 @@
                                     <%- include("./partials/ballances/fundingBallance.ejs") -%>
                               </div>
                               <div class="col-md-6 mb-4 ">
-                                <%- include("./partials/ballances/cyclesBallance.ejs") -%>
-                              </div>
-                              <div class="col-md-6 mb-4 ">
                                 <%- include("./partials/ballances/shortTermBallance.ejs") -%>
                               </div>
                         </div>  
@@ -117,7 +114,6 @@
                                             <select id="defaultSelect" name="from" class="form-select" required>
                                               <option value="">From wallet </option>
                                               <option value="fundingBallance"> Funding balance</option>
-                                              <option value="cyclesBallance">cycles balance</option>
                                               <option value="shortBallance">short-term balance</option>
                                             </select>
                                           </div>
@@ -126,7 +122,6 @@
                                             <select name="to" id="defaultSelect1" class="form-select" required>
                                               <option value=""> To wallet</option>
                                               <option value="fundingBallance"> Funding balance</option>
-                                              <option value="cyclesBallance">cycles balance</option>
                                               <option value="shortBallance">short-term balance</option>
                                             </select>
                                           </div>

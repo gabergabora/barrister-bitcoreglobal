@@ -4699,6 +4699,8 @@ button:active {
   margin-left: 5px;
   margin-right: 5px;
   -ms-flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   flex-wrap: wrap;
 }
 .pricing-grid-item {
@@ -4706,8 +4708,8 @@ button:active {
   -webkit-box-flex: 0;
   flex: 0 0 25%;
   -ms-flex: 0 1 auto;
-  max-width: 25%;
   width: 25%;
+  flex-grow: 1;
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }

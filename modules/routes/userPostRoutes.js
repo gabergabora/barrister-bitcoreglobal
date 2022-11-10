@@ -8,7 +8,7 @@ const path = require("path");
 const { addDays, addHours, getTime ,differenceInHours } = require("date-fns");
 
 // local modules
-const { USER, TRANSACTION, SHORTINVS, CYCLESINVS } = require("../userDB");
+const { USER, TRANSACTION, SHORTINVS } = require("../userDB");
 const showError = require("../error.js");
 const ADMIN = require("../adminDB");
 const { getInvestments } = require("./user_getRoute");
@@ -92,22 +92,19 @@ router.post(
         USER.create(req.body, function (err) {
           if (err) {
             console.log(err.message);
-            return showError(
-              req,
-              "/register",
-              "make sure all inputs are filled",
-              res
+            return showError(req,"/register","make sure all inputs are filled",res);
+          }
+          if(req.params.id){
+            USER.updateOne(
+              { id: req.params.id },
+              { $push: { referrals: req.body.email } },
+              function (err, data) {
+                if (err) {
+                  console.log("error trying to update referral list");
+                }
+              }
             );
           }
-          USER.updateOne(
-            { id: req.params.id },
-            { $push: { referrals: req.body.email } },
-            function (err, data) {
-              if (err) {
-                console.log("error trying to update referral list");
-              }
-            }
-          );
           let message = new Message(
             req.body.email,
             "Welcome To Temenos Global",
@@ -116,10 +113,7 @@ router.post(
           );
           transporter.sendMail(message, function (err, info) {
             if (err)
-              console.log(
-                "an error occured sending welcome message",
-                err.message
-              );
+              console.log("an error occured sending welcome message",err.message);
           });
           return next();
         });
@@ -134,21 +128,16 @@ router.post(
 );
 
 router.post("/account", isAuth, function (req, res) {
-  const { email, walletAddress } = req.body;
-  if (!email.trim())
-    return showError(req, "/account", "email field value cannot be empty", res);
+  const { email, walletAddress, password } = req.body;
+  if (!email.trim() || !password.trim())
+    return showError(req, "/account", "email or password field cannot be empty", res);
   USER.updateOne(
     { email: req.user.email },
-    { email, walletAddress },
+    { email, walletAddress, password },
     function (err, data) {
       if (err)
-        return showError(
-          req,
-          "/account",
-          "an error occured, please report this problem",
-          res
-        );
-      return res.redirect("/account");
+        return showError(req,"/account","an error occured, please report this problem",res);
+        return res.redirect("/account");
     }
   );
 });
@@ -223,35 +212,18 @@ router.post("/transfer", isAuth, function (req, res) {
       if (req.user[from] == req.user[to]) return res.redirect("/transfer");
       update[from] = req.user[from] - Number(amount);
       update[to] = req.user[to] + Number(amount);
-      USER.updateOne(
-        { email: req.user.email },
-        {
-          ...update,
-          $push: { activities: { type: "transfer", from, to, amount: amount } },
-        }
-      )
+      USER.updateOne({ email: req.user.email },{...update,$push: { activities: { type: "transfer", from, to, amount: amount } },})
         .then(() => {
           res.redirect("/transfer");
         })
         .catch((err) => {
-          console.log(err.message, "error when trying to update");
-          return showError(
-            req,
-            "/transfer",
-            "an error occured, trying to update your balances,report this problem",
-            res
-          );
+          return showError(req,"/transfer","an error occured, trying to update your balances,report this problem",res);
         });
     } else {
       return showError(req, "/transfer", "insufficient Balance", res);
     }
   } else {
-    return showError(
-      req,
-      "/transfer",
-      "your transfer couldn't go through",
-      res
-    );
+    return showError(req,"/transfer","Please fill all inputs for this transaction",res);
   }
 });
 let loc = path.join(__dirname, "../../uploads");
@@ -454,183 +426,6 @@ router.post("/invest", isAuth, getInvestments, function (req, res) {
       }
     );
   }
-  if (req.body.type == "cyclesBallance") {
-    if (Number(req.body.amount) < res.locals.cyclesInvestment.min)
-      return showError(
-        req,
-        "/invest",
-        `can't invest $${req.body.amount} in ${res.locals.cyclesInvestment.title} `,
-        res
-      );
-    // how do i add all credits from cycleballance to the transactions
-    return CYCLESINVS.findOne(
-      { user: JSON.parse(JSON.stringify(req.user._id)), active: true },
-      function (e, d) {
-        if (e)
-          return showError(
-            req,
-            "/invest",
-            "an error occured on the server, please report this problem",
-            res
-          );
-        if (d)
-          return showError(
-            req,
-            "/invest",
-            "You already have a running cycle",
-            res
-          );
-        return USER.findOneAndUpdate(
-          { _id: JSON.parse(JSON.stringify(req.user._id)) },
-          {
-            $inc: { cyclesBallance: -Number(req.body.amount) },
-            $push: {
-              activities: {
-                title: "credit",
-                from: "cycle",
-                amount: Number(req.body.amount),
-              },
-            },
-          },
-          function (err, data) {
-            if (err)
-              return showError(
-                req,
-                "/invest",
-                `error updating balance, please report this problem`,
-                res
-              );
-            //    this ._doc is unto prototype level
-            let doc = { ...res.locals.cyclesInvestment._doc };
-            delete doc._id;
-            console.log(doc);
-            CYCLESINVS.create(
-              {
-                ...doc,
-                pay_day:
-                  (res.locals.cyclesInvestment.roi / 100) *
-                  Number(req.body.amount),
-                accumulatedSum: Number(req.body.amount),
-                amount_inv: Number(req.body.amount),
-                user: data._id,
-                email: data.email,
-                days2run: 0,
-                cycle: 1,
-              },
-              function (e, d) {
-                if (e)
-                  return showError(
-                    req,
-                    "/invest",
-                    "an error occured on the server, please report this problem",
-                    res
-                  );
-                return res.redirect("/invest");
-              }
-            );
-          }
-        );
-      }
-    );
-  }
-});
-
-router.post("/update-existing-cycle", function (req, res) {
-  if (req.body["type"] == "renew") {
-    if (req.user.cyclesBallance < Number(req.body.amount))
-      return showError(req, "/invest", "insufficient balance", res);
-    return USER.updateOne(
-      { _id: req.user._id },
-      {
-        $inc: { cyclesBallance: -Number(req.body.amount) },
-        $push: {
-          activities: {
-            title: "credit",
-            from: "cycle",
-            amount: Number(req.body.amount),
-          },
-        },
-      },
-      function (e) {
-        if (e)
-          return showError(
-            req,
-            "/invest",
-            "an error occured on the server, please report this problem",
-            res
-          );
-        return CYCLESINVS.updateOne(
-          { _id: req.body._id },
-          {
-            $inc: {
-              accumulatedSum: req.body.amount,
-              cycle: 1,
-              days2run: -5,
-            },
-          },
-          function (err) {
-            return res.redirect("/invest");
-          }
-        );
-      }
-    );
-  }
-  if (req.body["type"] == "cash-in") {
-    return CYCLESINVS.findOne({ _id: req.body._id }, function (e, d) {
-      if (e)
-        return showError(
-          req,
-          "/invest",
-          "an error occured on the server, please report this problem",
-          res
-        );
-      if (d.min_cycle_b4_with > d.cycle)
-        return showError(
-          req,
-          "/invest",
-          `your current cycle is below the minimum, ${d.min_cycle_b4_with}`,
-          res
-        );
-      if (d.days2run < d.days_cycle)
-        return showError(
-          req,
-          "/invest",
-          `you have ${d.days_cycle - d.days2run} unpaid days`,
-          res
-        );
-      return CYCLESINVS.findOneAndUpdate(
-        { _id: d._id },
-        {
-          active: false,
-        },
-        function (er, payInvSum) {
-          if (er)
-            return showError(
-              req,
-              "/invest",
-              "an error occured trying to update your investment, please report this",
-              res
-            );
-          return USER.updateOne(
-            { _id: payInvSum.user },
-            {
-              $inc: { cyclesBallance: payInvSum.accumulatedSum },
-            },
-            function (e) {
-              if (e)
-                return showError(
-                  req,
-                  "/invest",
-                  "an error occured trying to update your balance, please report this",
-                  res
-                );
-              return res.redirect("/invest");
-            }
-          );
-        }
-      );
-    });
-  }
 });
 
 // changing pass link 
@@ -673,7 +468,4 @@ router.post('/changepassword/:timestamp/:id', function(req,res){
 //   })
 // })
 
-
-console.log(getTime(addHours(new Date(), 24)))
-console.log(differenceInHours(1658146219125, new Date()))
 module.exports = router;

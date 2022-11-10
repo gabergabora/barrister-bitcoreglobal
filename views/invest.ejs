@@ -77,21 +77,10 @@
       transition: all .3s linear;
       position: relative;
       }
-      .pricing_0{
-          background-color: rgba(41,72,255,.5) !important;
-      }
       .pricing_1{
-      background-color:rgba(41, 255, 105, 0.5)!important ;
+      background-color: rgba(0, 254, 76, .5)!important ;
       }
-      .pricing_2{
-      background-color:rgba(255, 102, 41, 0.5)!important ;
-      }
-      .pricing_3{
-      background-color:rgba(0, 0, 0, 0.5)!important ;
-      }
-      .pricing_gold{
-        background-color: rgba(255, 170, 0, 0.5) !important;
-      }
+   
       .pricing-item-amount h4 {
       font-size: 49px;
       font-weight: 400;
@@ -99,7 +88,7 @@
       position: relative;
       -webkit-transition: all .5s linear;
       transition: all .5s linear;
-      }
+      }f
       .pricing-item-body {
       padding: 20px;
       height: 100%;
@@ -204,153 +193,51 @@
                     <div class="col-md-12 col-lg-11">
                         <div class="row ">
                             <div class="col-12">
-                                <div class="nav-align-top mb-4">
-                                  <ul class="nav nav-pills mb-3" role="tablist">
-                                    <li class="nav-item">
-                                      <button type="button" class="nav-link text-white active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home" aria-selected="true">
-                                        single plans
-                                      </button>
-                                    </li>
-                                    <li class="nav-item">
-                                      <button type="button" class="nav-link text-white" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile" aria-selected="false">
-                                        marathon cycle
-                                      </button>
-                                    </li>
-                                  </ul>
-                                  <div class="tab-content px-0">
-                                      <!-- first pane -->
-                                    <div class="tab-pane fade active show" id="navs-pills-top-home" role="tabpanel">
-                                      <div class="container">
-                                        <div class="row">
-                                          <div class="col-md-6 mb-4 ">
-                                            <%- include("./partials/ballances/shortTermBallance.ejs") -%>
-                                          </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                         <% normalInvestments.sort((a,b)=> a.max - b.max ).forEach((investment, index)=>{%>
-                                            <div class="col-md-6 col-lg-4 mb-3">
-                                              <div class="card card-bg">
-                                                <div class="py-2">
-                                                  <div class="pricing-grid-item-inner">
-                                                    <div class="pricing-item-header py-3">
-                                                    <h3 class="text-center px-3 text-primary"><img src="assets/images/dashboard/pricing-check.png" alt="icon"> <%= investment.title %></h3>
-                                                    </div>
-                                                    <div class="pricing-item-amount pricing_<%=index%>">
-                                                      <%# if min investment is less than one#%>
-                                                      <% if(!investment.min){ %>
-                                                        <h4 style="font-size:20px" class="text-white"> < <small >$</small> <%= investment.max %> </h4>
-                                                      <%}else{ %>
-                                                        <h4 style="font-size:20px" class="text-white"><small >$</small> <%= investment.min.toLocaleString('en-US') %> - <%= investment.max.toLocaleString('en-US') %> </h4>
-                                                     <% } %>
-                                                    </div>
-                                                    <div class="pricing-item-body px-3">
-                                                    <ul class="pricing-item-list">
-                                                    <li class="text-primary"><img src="assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">  <%= investment.roi %>% (ROI)</li>
-                                                    <li class="text-primary"><img src="assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">Duration : <%= investment.duration %> days</li>
-                                                    </ul>
-                                                    <form method="post" class="my-2 w-100">
-                                                      <input type="hidden" name="title" class="form-control" value="<%= investment.title %>">
-                                                      <input type="hidden" name="type" class="form-control" value="shortBallance">
-                                                      <div class="py-2">
-                                                        <input type="number" name="amount" class="form-control" placeholder="put amount" required> 
-                                                      </div>
-                                                      <button class="btn btn-outline-primary form-control "> invest</button>
-                                                    </form>
-                                                    </div>
-                                                    
-                                                </div>
-                                              </div>
-                                            </div>
-                                            </div>
-                                        <%  }) %>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <!-- ## first pane ## -->
-
-                                    <!-- second pane -->
-                                    <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
-                                      <div class="container">
-                                        <div class="row">
-                                          <div class="col-md-6 mb-4 ">
-                                            <%- include("./partials/ballances/cyclesBallance.ejs") -%>
-                                          </div>
-                                        </div>
-                                          <% if(userRunningCycle){ %>
-                                        <div class="row justify-content-center">
-                                            <div class="col-sm-10 col-md-8 col-lg-7 mb-3">
-                                              <div class="card">
-                                                <div class="py-2">
-                                                  <div class="pricing-grid-item-inner">
-                                                    <div class="pricing-item-header py-3">
-                                                    <h3 class="text-center px-3"><img src="assets/images/dashboard/pricing-check.png" alt="icon"> Running Cycle</h3>
-                                                    </div>
-                                                    <div class="pricing-item-amount pricing_gold">
-                                                        <h4 class="text-white"><small >$</small><%= userRunningCycle.accumulatedSum.toLocaleString('en-US') %></h4>
-                                                    </div>
-                                                    <div class="pricing-item-body px-3">
-                                                    <ul class="pricing-item-list">
-                                                      <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> re-curring deposit : $<%= userRunningCycle.amount_inv %> </li>
-                                                      <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> days to be paid : <%= userRunningCycle.days_cycle  - userRunningCycle.days2run %>  days</li>
-                                                      <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> profit per day : $<%= userRunningCycle.pay_day %> </li>
-                                                      <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> current cycle : <%= userRunningCycle.cycle %> </li>
-                                                      <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> minimum amount of cycle : <%= userRunningCycle.min_cycle_b4_with %> cycles</li>
-                                                    </ul>
-                                                    <form method="post" action="/update-existing-cycle" class="my-2 w-100">
-                                                      <input type="hidden" name="_id" class="form-control" value="<%= userRunningCycle._id %>">
-                                                      <input type="hidden" name="amount" class="form-control" value="<%= userRunningCycle.amount_inv %>">
-                                                      <div class="mb-3 d-flex">
-                                                        <button class="btn btn-outline-primary form-control mx-1" name="type" value="renew"> Renew </button>
-                                                        <button class="btn btn-outline-success form-control mx-1" name="type" value="cash-in"> cash-in</button>
-                                                      </div>
-                                                    </form>
-                                                    </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                         <% }else{ %>
-                                        <div class="row">
-                                          <div class="col-md-6 col-lg-4 mb-3">
-                                            <div class="card">
-                                              <div class="py-2">
-                                                <div class="pricing-grid-item-inner">
-                                                  <div class="pricing-item-header py-3">
-                                                  <h3 class="text-center px-3"><img src="assets/images/dashboard/pricing-check.png" alt="icon"> <%= cyclesInvestment.title %></h3>
-                                                  </div>
-                                                  <div class="pricing-item-amount pricing_gold">
-                                                    <% if(!cyclesInvestment.max){ %>
-                                                      <h4 style="font-size:20px" class="text-white"><small >$</small><%= cyclesInvestment.min %> - unlimited</h4>
-                                                   <% }else{ %>
-                                                    <h4 style="font-size:20px" class="text-white"><small >$</small><%= cyclesInvestment.min %> - <%= cyclesInvestment.max %></h4>
-                                                   <% } %>
-                                                  </div>
-                                                  <div class="pricing-item-body px-3">
-                                                  <ul class="pricing-item-list">
-                                                    <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">  <%= cyclesInvestment.roi %> (ROI)/day</li>
-                                                    <li><img src="/assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow"> minimum of <%= cyclesInvestment.min_cycle_b4_with %> cycles</li>
-                                                  </ul>
-                                                  <form method="post" class="my-2 w-100">
-                                                    <input type="hidden" name="type" class="form-control" value="cyclesBallance">
-                                                    <div class="py-2">
-                                                      <input type="number" name="amount" class="form-control" placeholder="put amount" required>
-                                                    </div>
-                                                    <button class="btn btn-outline-primary form-control "> invest</button>
-                                                  </form>
-                                                  </div>
-                                                  
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        </div>
-                                        <% } %>
-                                      </div>
-                                    </div>
-                                    <!-- ## second pane ## -->
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col-md-6 mb-4 ">
+                                    <%- include("./partials/ballances/shortTermBallance.ejs") -%>
                                   </div>
                                 </div>
+                                <div class="row justify-content-center">
+                                 <% normalInvestments.sort((a,b)=> a.max - b.max ).forEach((investment, index)=>{%>
+                                    <div class="col-md-6 col-lg-4 mb-3">
+                                      <div class="card card-bg">
+                                        <div class="py-2">
+                                          <div class="pricing-grid-item-inner">
+                                            <div class="pricing-item-header py-3">
+                                            <h3 class="text-center px-3 text-primary"><img src="assets/images/dashboard/pricing-check.png" alt="icon"> <%= investment.title %></h3>
+                                            </div>
+                                            <div class="pricing-item-amount pricing_1">
+                                              <%# if min investment is less than one#%>
+                                              <% if(!investment.min){ %>
+                                                <h4 style="font-size:20px" class="text-white"> < <small >$</small><%= investment.max %> </h4>
+                                              <%}else{ %>
+                                                <h4 style="font-size:20px" class="text-white fw-bold"><small >$</small><%= investment.min.toLocaleString('en-US') %> - <%= investment.max.toLocaleString('en-US') %> </h4>
+                                             <% } %>
+                                            </div>
+                                            <div class="pricing-item-body px-3">
+                                            <ul class="pricing-item-list">
+                                            <li class="text-primary"><img src="assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">  <%= investment.roi %>% (ROI)</li>
+                                            <li class="text-primary"><img src="assets/images/dashboard/pricing-arrow.png" alt="icon" class="pricing-list-arrow">Duration : <%= investment.duration %> days</li>
+                                            </ul>
+                                            <form method="post" class="my-2 w-100">
+                                              <input type="hidden" name="title" class="form-control" value="<%= investment.title %>">
+                                              <input type="hidden" name="type" class="form-control" value="shortBallance">
+                                              <div class="py-2">
+                                                <input type="number" name="amount" class="form-control" placeholder="put amount" required> 
+                                              </div>
+                                              <button class="btn btn-outline-primary form-control "> invest</button>
+                                            </form>
+                                            </div>
+                                            
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                <%  }) %>
+                                </div>
+                              </div>
                               </div>
                         </div>
                     </div>

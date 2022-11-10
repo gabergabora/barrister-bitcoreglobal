@@ -11,7 +11,7 @@ const {loanDecline,loanSuccess} = require('../email-templates/loan')
 
 const {declinedWithdraw, successfulWithdraw, declinedDeposit, successfulDeposit} = require("../email-templates/deposits&withdraw")
 
-const {updateShortPayment, updateRunningCycle} = require('../node-cron')
+const {updateShortPayment} = require('../node-cron')
 
 router.use(express.urlencoded({extended : true}))
 
@@ -273,18 +273,7 @@ router.post('/payday',isAuth, function(req,res){
             return res.redirect('payday')
         })
    }
-   if(req.body['type']== 'cycles'){
-    //   if there is a method to prevent paying twice per day
-    return updateRunningCycle(req).then(()=> {
-        req.flash('error', "successfully paid due cycles")
-        return res.redirect('payday')
-    })
-    .catch(err=>{
-        req.flash("error","an error occured : "+ err.message )
-        console.log(err)
-        return res.redirect('payday')
-    })
-   }
+//    deleted update cycles plan
    return res.send('your method is unsupported, contact management..')
 })
 module.exports = router

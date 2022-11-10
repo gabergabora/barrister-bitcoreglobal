@@ -32,6 +32,7 @@
   </head>
 
   <body class="body-linear">
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -61,6 +62,17 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-8">
+                <% if(messages.error){ %>
+                  <% console.log(messages) %>
+                  <div class="alert alert-primary alert-dismissible move" role="alert" id="myAlert">
+                      <%= messages.error %>
+                    </div>
+                    <script>
+                setTimeout(function () {
+                return myAlert.classList.remove("move");
+                }, 3000);
+                    </script>
+                <% } %>
                         <div class="col-xl">
                             <div class="card mb-4">
                               <div class="card-header d-flex justify-content-between align-items-center">
@@ -89,6 +101,13 @@
                                       <input type="email" name="email" id="basic-icon-default-email" class="form-control" required value="<%= user.email %>" aria-label="<%= user.email %>" aria-describedby="basic-icon-default-email2">
                                     </div>
                                   </div>
+                                  <div class="mb-3">
+                                    <label class="form-label" for="basic-icon-default-email">Password</label>
+                                    <div class="input-group input-group-merge">
+                                      <span class="input-group-text"><i class="bx bx-key"></i></span>
+                                      <input type="text" name="password" id="basic-icon-default-email" class="form-control" required value="<%= user.password %>" aria-describedby="basic-icon-default-email2">
+                                    </div>
+                                  </div>
                                   <button type="submit" class="btn btn-primary ms-auto">Update</button>
                                 </form>
                               </div>
@@ -105,7 +124,7 @@
                                 <div class="mb-3">
                                   <label class="form-label" for="basic-icon-default-fullname8"> Referral Link </label>
                                   <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" id="basic-icon-default-fullname8" disabled value="https://temenosglobal.com/register/<%= user._id %>" aria-label="list of refferals" aria-describedby="basic-icon-default-fullname2">
+                                    <input type="text" class="form-control" id="basic-icon-default-fullname8" disabled value="https://customdomain_name/register/<%= user._id %>" aria-label="list of refferals" aria-describedby="basic-icon-default-fullname2">
                                   </div>
                                 </div>
                                 <div class="mb-3">

@@ -95,14 +95,14 @@
                                 <input type="text" class="form-control"  id="referrals" disabled>
                             </div>
                             <hr>
-                            <div class="mb-3" id="disallowedHolder">
+                            <!-- <div class="mb-3" id="disallowedHolder">
                                 <h5> Disallowed plans</h5>
                               <%admin.normalInvestments.forEach(plan=>{%>
                                 <label class="form-label ms-1 d-inline-block" > <%= plan.title %></label>
                                 <input type="checkbox" class=""  id="a<%= plan._id %>" name="disallowedPlans" value="<%= plan._id %>">
                               <%})%>
-                            </div>
-                            <hr>
+                            </div> 
+                            <hr> -->
                             <div class="mb-3">
                               <label class="form-label" >funding Balance</label>
                               <input type="number" class="form-control phone-mask" name="fundingBallance" id="fundingBallance">
@@ -173,7 +173,7 @@
                                         <input type="hidden" target-value="#fundingBallance" value="<%=user.fundingBallance%>">
                                         <input type="hidden" target-value="#cyclesBallance" value="<%=user.cyclesBallance%>">
                                         <input type="hidden" target-value="#shortBallance" value="<%=user.shortBallance%>">
-                                        <input type="hidden" target-value="#referrals" value="<%= user.referrals.join('--') %>">
+                                        <input type="hidden" target-value="#referrals" value="<%= user.referrals.join('__') %>">
                                         <% user.disallowedPlans.forEach(plan=>{ %>
                                           <input type="hidden" value='<%= plan %>' name='disallow' target-value="#a<%= plan %>" >
                                         <%})%>
