@@ -19,42 +19,42 @@ const admin = {
 ],
     normalInvestments : [
         {
-            title : "Starter Plan",
+            title : "Beginner Plan",
             roi :4,
             duration : 5,
-            min : 60,
+            min : 100,
             max : 599,
         },
         {
-            title : "Premium Plan",
+            title : "Amateur Plan",
             roi :6,
             duration : 5,
             min : 600,
             max : 1999
         },
         {
-            title : "Super Plan",
+            title : "Silver Plan",
             roi : 8,
             duration : 4,
             min : 2000,
             max : 4999
         },
         {
-            title : "Professional Plan",
+            title : "Gold Plan",
             roi :11,
             duration : 6,
             min : 5000,
             max : 9999
         },
         {
-            title : "Exotic Plan",
+            title : "Diamond Plan",
             roi :14,
             duration : 7,
             min : 10000,
             max : 14999
         },
         {
-            title : "Covid-19 Plan",
+            title : "Almighty Plan",
             roi :45,
             duration : 20,
             min : 15000,

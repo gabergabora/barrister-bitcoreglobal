@@ -34,7 +34,7 @@ const shortInvestment = mongoose.Schema({
   amount: Number,
   paid: { type: Boolean, default: false },
   profit: Number,
-});
+},{timestamps : true});
 
 const activity = mongoose.Schema(
   {

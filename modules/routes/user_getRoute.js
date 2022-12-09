@@ -1,4 +1,4 @@
-const { format, isValid, differenceInHours, differenceInDays } = require("date-fns")
+const { format, isValid, differenceInHours, differenceInDays, subDays } = require("date-fns")
 const express = require("express")
 const user_getRoute = express.Router()
 const ADMIN = require("../adminDB")
@@ -12,6 +12,7 @@ const isAuth = function(req,res, next){
     res.locals.user = req.user
     res.locals.format = format
     res.locals.difference = differenceInDays
+    res.locals.sub = subDays
     return next() 
 }
 const getInvestments = function(req,res, next){

@@ -34,10 +34,15 @@
         </div>
       </div>
       <script>
-        console.log("<%=difference(new Date(), new Date(shorts.expiry))%>")
       </script>
       <span class="fw-semibold d-block mb-2">Running Plans </span>
-      <h3 class="card-title text-nowrap mb-1 control-color" id="R-inv" data-amount="<%=shorts.amount %>" ><%= shorts.amount.toLocaleString("en-US", { style: "currency", currency: "USD" }) || '0.00' %> </h3>
+      <h3 class="card-title text-nowrap mb-1 control-color" id="R-inv" data-amount="<%=shorts.amount %>" >
+        <% if(shorts.amount && shorts.expiry < new Date()){ %>
+          <%= shorts.amount + shorts.duration* shorts.amount %>
+       <% }else{%>
+        <%= shorts.amount ? (shorts.amount + (difference(new Date(),shorts.createdAt)* shorts.profit)).toLocaleString("en-US", { style: "currency", currency: "USD" }) : '$ 0.00' %> 
+     <% } %>
+        </h3>
       <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small> -->
       <div class="d-flex justify-content-between">
         <% if(shorts.profit){ %>

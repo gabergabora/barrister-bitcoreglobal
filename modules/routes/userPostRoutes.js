@@ -230,12 +230,7 @@ router.post("/deposit", isAuth, function (req, res) {
   upload(req, res, function (err) {
     const { means, amount } = req.body;
     if (err instanceof multer.MulterError) {
-      return showError(
-        req,
-        "/deposit",
-        "a run time error occured, please report this to the management",
-        res
-      );
+      return showError(req,"/deposit","a run time error occured, please report this to the management",res);
     } else if (err) {
       console.log("error occured in multer", err.message);
       // An unknown error occurred when uploading.
@@ -252,12 +247,7 @@ router.post("/deposit", isAuth, function (req, res) {
       function (error, result) {
         if (error) {
           console.log(error);
-          return showError(
-            req,
-            "/deposit",
-            "an error occured, trying to upload your file",
-            res
-          );
+          return showError(req,"/deposit","an error occured, trying to upload your file",res);
         }
         TRANSACTION.create({
           user: req.user._id,
@@ -277,21 +267,11 @@ router.post("/deposit", isAuth, function (req, res) {
             transporter.sendMail(message, function (err) {
               if (err) console.log(err);
             });
-            return showError(
-              req,
-              "/deposit",
-              "succesfully uploaded, awaiting confirmation",
-              res
-            );
+            return showError(req,"/deposit","succesfully uploaded, awaiting confirmation",res);
           })
           .catch((err) => {
             console.log(err);
-            return showError(
-              req,
-              "/deposit",
-              "an error occured in trying to make deposit",
-              res
-            );
+            return showError(req,"/deposit","an error occured in trying to make deposit",res);
           });
       }
     );
@@ -310,12 +290,7 @@ router.post("/invest", isAuth, getInvestments, function (req, res) {
       (blocked) => blocked == JSON.parse(JSON.stringify(plan._id))
     );
     if (disallowed.length)
-      return showError(
-        req,
-        "/invest",
-        " this plan is not available to you ",
-        res
-      );
+      return showError(req,"/invest"," this plan is not available to you ",res);
     //  check if user has a normal investment that has not been paid
     if (!plan)
       return showError(req, "/invest", "couldn't find your selected plan", res);
@@ -324,35 +299,15 @@ router.post("/invest", isAuth, getInvestments, function (req, res) {
       Number(req.body.amount) > plan.max ||
       !Boolean(Number(req.body.amount))
     )
-      return showError(
-        req,
-        "/invest",
-        `can't invest $${req.body.amount} in ${req.body.title} `,
-        res
-      );
+      return showError(req,"/invest",`can't invest $${req.body.amount} in ${req.body.title} `,res);
     return SHORTINVS.findOne(
       { user: JSON.parse(JSON.stringify(req.user._id)), paid: false },
       function (err, unpaidShorts) {
         if (err)
-          return showError(
-            req,
-            "/invest",
-            "an error occured on the server, please report this problem",
-            res
-          );
+          return showError(req,"/invest","an error occured on the server, please report this problem",res);
         if (unpaidShorts)
-          return showError(
-            req,
-            "/invest",
-            "you still have an un matured short-term investment running",
-            res
-          );
-        USER.updateOne(
-          { email: req.user.email },
-          {
-            $inc: { shortBallance: -Number(req.body.amount) },
-          }
-        )
+          return showError(req,"/invest","you still have an un matured short-term investment running",res);
+        USER.updateOne({ email: req.user.email },{$inc: { shortBallance: -Number(req.body.amount) },})
           .then(() => {
             SHORTINVS.create({
               user: req.user._id,
@@ -366,22 +321,12 @@ router.post("/invest", isAuth, getInvestments, function (req, res) {
               .then(() => res.redirect("/invest"))
               .catch((err) => {
                 console.log(err.message);
-                return showError(
-                  req,
-                  "/invest",
-                  "an error occured on the server, please report this problem",
-                  res
-                );
+                return showError( req,"/invest","an error occured on the server, please report this problem",res);
               });
           })
           .catch((err) => {
             console.log(err.message);
-            return showError(
-              req,
-              "/invest",
-              "an error occured on the server, please report this problem",
-              res
-            );
+            return showError(req,"/invest","an error occured on the server, please report this problem",res);
           });
       }
     );
