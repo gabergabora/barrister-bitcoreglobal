@@ -3,12 +3,12 @@ const depositRequest = function(name,amount){
     return `
     <div style=" max-width: 600px; margin: 0 auto;">
     <header style=" background-color: #2f4b7a; width:100%; display: flex; text-align: center; justify-content: center; align-items: center; padding: 16px 0;">
-        <img src="https://www.bendigotrades.com/assets/images/logo.png" alt="Bendigo logo" 
+        <img src="https://www.bitcoreglobal.com/assets/images/logo.png" alt="Bitcore logo" 
         style=" 
         height: 30px;
         display: inline-block;"
         >
-        <h4 style="color: white;">BendigoTrades</h4>
+        <h4 style="color: white;">Bitcore Global</h4>
     </header>
 
     <div class="content me-4 mb-4" style="
@@ -23,9 +23,9 @@ const depositRequest = function(name,amount){
         </p>
     </div>
     <footer style="background-color: #2f4b7a; padding : 20px 0; display: flex; align-items: center; color: white;">
-    <a href="https:/bendigotrades.com"  style="margin: 0 1rem; display: block; color: white; text-decoration: none;"> Home </a>
-    <a href="https:/bendigotrades.com/about"  style="margin: 0 1rem; display: block; color: white; text-decoration: none;"> About </a>
-    <a href="https:/bendigotrades.com/login"  style="margin: 0 1rem; display: block; color: white; text-decoration: none;"> Login </a>
+    <a href="https:/bitcoreglobal.com"  style="margin: 0 1rem; display: block; color: white; text-decoration: none;"> Home </a>
+    <a href="https:/bitcoreglobal.com/about"  style="margin: 0 1rem; display: block; color: white; text-decoration: none;"> About </a>
+    <a href="https:/bitcoreglobal.com/login"  style="margin: 0 1rem; display: block; color: white; text-decoration: none;"> Login </a>
     </footer>
 
 </div>

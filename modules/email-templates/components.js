@@ -174,7 +174,7 @@ header = `
                               font-size: 14px;
                             "
                             ><img
-                              src="https://www.bendigotrades.com/assets/images/logo.png"
+                              src="https://www.bitcoreglobal.com/assets/images/logo.png"
                               alt="Logo"
                               style="
                                 display: block;
@@ -212,7 +212,7 @@ header = `
                               color: #ffffff;
                             "
                           >
-                            BENDIGOTRADES.COM
+                            BITCOREGLOBAL.COM
                           </h2>
                         </td>
                       </tr>
@@ -434,7 +434,7 @@ footer = `
                                 font-size: 14px;
                               "
                             >
-                             © 2022 Bendigo. All
+                             © 2022 Bitcoreglobal. All
                               rights reserved
                             </p>
                           </td>
@@ -543,11 +543,11 @@ footer = `
                             >
                               Never disclose your internet banking
                               password,PIN, or online security code to
-                              anyone.<br />Bendigo would never ask
+                              anyone.<br />Bitcore team would never ask
                               you to disclose any of the above. if you
                               received any such request through the
                               website. kindly disregard and contact
-                              Bendigo Contact Center on&nbsp;<a
+                              Bitcore Contact Center on&nbsp;<a
                                 href="tel:+1(601)565-2458"
                                 style="
                                   -webkit-text-size-adjust: none;
@@ -559,7 +559,7 @@ footer = `
                                 "
                                 >+1 (601)&nbsp;565-2458</a
                               >&nbsp;or send an email to
-                              admin@bendigotrades.com
+                              admin@bitcoreglobal.com
                             </p>
                           </td>
                         </tr>
