@@ -4,7 +4,6 @@ const passport = require("passport");
 const session = require("express-session");
 const flash = require("express-flash");
 const localStrategy = require("passport-local").Strategy;
-var forceSsl = require('force-ssl-heroku');
 require("dotenv").config();
 
 // local modules
@@ -20,7 +19,6 @@ require("./modules/node-cron");
 
 app.set("view engine", "ejs");
 app.use("/assets", express.static("assets"));
-app.use(forceSsl);
 
 app.use(flash());
 
