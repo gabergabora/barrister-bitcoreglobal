@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 class Message {
     constructor(to,subject,text,html){
-        this.from = { name : "Temenos global ", address :  process.env.NODEMAILER_USER}
+        this.from = { name : "Bitcore Global ", address :  process.env.NODEMAILER_USER}
         this.to = to
         this.subject = subject
         this.text = text

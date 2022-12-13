@@ -272,7 +272,7 @@ const welcome = function(name){
            </table> 
            <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
              <tr> 
-              <td align="center" background="https://www.temenosglobal.com/assets/email-images/backgroundconfetti.png" style="padding:0;Margin:0;background-image:url(https://www.bitcoreglobal.com/assets/email-images/backgroundconfetti.png);background-repeat:repeat;background-position:left top"> 
+              <td align="center" background="https://www.bitcoreglobal.com/assets/email-images/backgroundconfetti.png" style="padding:0;Margin:0;background-image:url(https://www.bitcoreglobal.com/assets/email-images/backgroundconfetti.png);background-repeat:repeat;background-position:left top"> 
                <table class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px"> 
                  <tr> 
                   <td align="left" style="Margin:0;padding-left:20px;padding-right:20px;padding-top:25px;padding-bottom:25px;background-color:#2f4b7a" bgcolor="#2f4b7a"> 
